@@ -3,3 +3,4 @@
 {<img src='https://jenkins-iac.cegeka.be/job/puppet-ssh/badge/icon' />}[https://jenkins-iac.cegeka.be/job/puppet-ssh/]
 
 This is the ssh module.
+
