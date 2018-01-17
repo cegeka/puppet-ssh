@@ -16,7 +16,7 @@ class ssh::server (
 
   case $::operatingsystem {
     'RedHat','CentOS': { include ssh::server::redhat}
-    default: { fail "Unsupported operatingsystem ${::operatingsystem}" }
+    default: { fail("Unsupported operatingsystem ${::operatingsystem}") }
   }
 
 }

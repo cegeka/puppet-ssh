@@ -6,7 +6,7 @@ class ssh::server::params {
       $sshd_service = 'sshd'
       $sshd_config = '/etc/ssh/sshd_config'
     }
-    default: { fail "Unsupported operatingsystem ${::operatingsystem}" }
+    default: { fail("Unsupported operatingsystem ${::operatingsystem}") }
   }
 
 }

@@ -4,7 +4,7 @@ class ssh::client::params {
     'RedHat','CentOS': {
       $ssh_package = 'openssh-server'
     }
-    default: { fail "Unsupported operatingsystem ${::operatingsystem}" }
+    default: { fail("Unsupported operatingsystem ${::operatingsystem}") }
   }
 
 }
