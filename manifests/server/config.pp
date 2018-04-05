@@ -19,12 +19,14 @@ define ssh::server::config (
   include ssh::server::params
 
   augeas { "sshd_config_${sshd_parameter}":
-    context => "/files${ssh::server::params::sshd_config}",
+    incl    => $::ssh::server::params::sshd_config,
+    lens    => 'Sshd.lns',
+    context => "/files${::ssh::server::params::sshd_config}",
     changes => [
       "set ${sshd_parameter} ${sshd_value}"
     ],
-    require => Package[$ssh::server::params::sshd_package],
-    notify  => Service[$ssh::server::params::sshd_service]
+    require => Package[$::ssh::server::params::sshd_package],
+    notify  => Service[$::ssh::server::params::sshd_service]
   }
 
 }
