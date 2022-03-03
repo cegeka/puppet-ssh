@@ -18,12 +18,14 @@ define ssh::server::config (
 
   include ssh::server::params
 
+  if ($ensure == 'present') { $action = 'set' } else { $action = 'rm' }
+
   augeas { "sshd_config_${sshd_parameter}":
     incl    => $::ssh::server::params::sshd_config,
     lens    => 'Sshd.lns',
     context => "/files${::ssh::server::params::sshd_config}",
     changes => [
-      "set ${sshd_parameter} ${sshd_value}"
+      "${action} ${sshd_parameter} '${sshd_value}'"
     ],
     require => Package[$::ssh::server::params::sshd_package],
     notify  => Service[$::ssh::server::params::sshd_service]
