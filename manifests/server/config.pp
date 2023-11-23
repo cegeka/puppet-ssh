@@ -26,8 +26,6 @@ define ssh::server::config (
   # In some edge-cases you need the clean sshd parameter, example: MACs for MACs/1 or Ciphers for Ciphers/1
   $sshd_parameter_clean = $sshd_parameter.split('/')[0]
 
-  notify { "sshd: $sshd_parameter -- $sshd_parameter_clean":}
-
   if ($ensure == 'present' and $sshd_parameter_clean != 'Match') {
     augeas { "sshd_config_insert_${sshd_parameter}":
       incl    => $::ssh::server::params::sshd_config,
@@ -37,7 +35,6 @@ define ssh::server::config (
         "insert ${sshd_parameter_clean} after Subsystem",
         "${action} ${sshd_parameter} '${sshd_value}'"
       ],
-      # onlyif  => "match /files${::ssh::server::params::sshd_config}[(count(Match) > 0 and count(${sshd_parameter_clean}) = 0) or (count(Match) = 0 and count(${sshd_parameter_clean}) > 0)] size == 0",
       onlyif  => "match /files${::ssh::server::params::sshd_config}/${sshd_parameter_clean} size == 0",
       require => Package[$::ssh::server::params::sshd_package],
     }
