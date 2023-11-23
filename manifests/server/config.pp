@@ -37,6 +37,7 @@ define ssh::server::config (
       ],
       onlyif  => "match /files${::ssh::server::params::sshd_config}/${sshd_parameter_clean} size == 0",
       require => Package[$::ssh::server::params::sshd_package],
+      notify  => Service[$::ssh::server::params::sshd_service]
     }
   }
 
