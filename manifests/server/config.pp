@@ -50,7 +50,7 @@ define ssh::server::config (
     ],
     require => [
       Package[$::ssh::server::params::sshd_package],
-      Augeas["sshd_config_insert_${sshd_parameter}"]
+      ($ensure == 'present' and $sshd_parameter_clean != 'Match') ? { true => Augeas["sshd_config_insert_${sshd_parameter}"], default => undef }
     ],
     notify  => Service[$::ssh::server::params::sshd_service]
   }
