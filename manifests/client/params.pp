@@ -1,10 +1,10 @@
 class ssh::client::params {
 
-  case $::operatingsystem {
+  case $facts['os']['name'] {
     'RedHat','CentOS': {
       $ssh_package = 'openssh-server'
     }
-    default: { fail("Unsupported operatingsystem ${::operatingsystem}") }
+    default: { fail("Unsupported operatingsystem ${facts['os']['name']}") }
   }
 
 }
